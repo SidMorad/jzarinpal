@@ -1,0 +1,6 @@
+version: '2'
+services:
+    jzarinpal-service:
+        image: jzarinpal-server
+        environment:
+            - SLEEP=0 # add delay in seconds if needed.

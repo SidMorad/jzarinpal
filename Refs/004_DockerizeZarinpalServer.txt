@@ -1,0 +1,18 @@
+
+number : 4
+
+status : inprogress
+
+type : Story/feature
+
+subject : Dockerize Zarinpal server
+
+description : We want to make jzarinpal-server installable as docker
+ container.
+
+story point : 1
+
+comments : [
+  : "2018-03-26 story created.",
+  : "",
+]

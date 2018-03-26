@@ -1,33 +1,55 @@
-jZarinpal is a java library for communicating with Zarinpal.com web service.
+### jZarinpal
+is a java module for communicating with Zarinpal.com web service.
 
-The idea is to use REST for simplifying some common scenarios.
-for example for receiving new authority code, you could use following form:
+The idea is to use REST for simplifying some common scenarios. for example for receiving new authority code, you could use following code:
+```java
+JZarinpalClient client = JZarinpalClientImpl.newClient();
+PaymentRequestDto paymentRequestDto = new PaymentRequestDto(1000, "Charge account");
+try {
+	String paymentToken = client.paymentRequest(paymentRequestDto);
+	// Persist this paymentToken (to a database) for later use.
+	return "redirect:" + UrlHelper.zarinpalStartPayUrl(paymentToken);
+} catch (UnexpectedStatusCodeException e) {
+	addError("sorry.we.are.not.able.to.connect.to.zarinpal.web.service.at.the.moment.error.code.is.xxxx", request, e.getStatusCode());
+} catch (ProcessingException e) {
+	addError("sorry.we.are.not.able.to.connect.to.zarinpal.web.service.at.the.moment.error.code.is.xxxx", request, 500);
+}
+```
+and you receive authority code as result, and in case of failure you do have a HTTP status code for finding the cause.
 
-<form action="http://127.0.0.1:9998/paymentrequest" method="post">
- <input name="amount">1000</input>
- <input name="description">Charge account</input>
- <input name="callbackURL">http://127.0.0.1:9998/receiveAuthority</input>
-</form>
+and here is a callback handling scenario using spring-mvc framework:
+```java
+@RequestMapping("zarinpal/callback")
+public String zarinpalCallbackGet(Model model,
+        HttpServletRequest request, Principal principal,
+        @RequestParam(value = "authority", required = true) String authority,
+        @RequestParam(value = "status", required = true) String status) {
+    // load payment with authroity code
+    JZarinpalClient client = JZarinpalClientImpl.newClient();
+    PaymentVerificationDto paymentVerificationDto = new PaymentVerificationDto(payment.amount(), authority);
+    try {
+        Long refId = client.paymentVerification(paymentVerificationDto);
+        if (!refId.equals(new Long(0))) {	// refId '0' means no reference id.
+            // Persist successful event (into a database) here.
+            addMessage("amount.xxxx.added.into.your.account.balance.successfully", request, 1000);
+        }
+    } catch (UnexpectedStatusCodeException e) {
+        ZarinStatus zarinStatus = ZarinStatus.fromHttpStatusCode(e.getStatusCode());
+        addError(zarinStatus.message(), request);
+    } catch (Exception e) {
+        addError("sorry.something.went.wrong.please.try.again.now.or.later", request);
+    }
+}
+```
 
-and you only receive authority code if success.
-and you have HTTP status code for finding the cause of failure.
+### jzarinpal-server
+is server-side module for providing REST end-points.
 
+### jzarinpal-client
+is a client-side module for using provided REST end-points.
 
-One module of this application is serving RESTful resources(jzarinpal-server)
-and the other will using these RESTful resources(jzarinpal-client).
+Usually jzarinpal-server need to be installed in one of your servers, then jzarinpal-client can be use(as dependency) in any of your java applications.
 
-Usually jzarinpal-server need to be installed in one of your servers,
-then jzarinpal-client could be used in any of your java applications.
+Ideally (one day) creators of Zarinpal.com will provide this RESTful services for us! and we only need to import provided client library by them, e.g. zarinpal-java-sdk.
 
-
-NOTE NOTE: If you want to use Zarinpal.com web service only once in one application,
-           then using Web Service code directly sounds simpler(to me).
-
-Ideally (one day) creators of Zarinpal.com
-will provide this RESTful service for us! :-)
-
-
-p.s. https://github.com/SamaGostar/Zarinpal-Gateway-Documentation was only
-     founded document(written in Farsi language) that I used for reference.
-     If this document is out-of-date or there is better one?
-     please let me know, thank you.
+Note: https://github.com/SamaGostar/Zarinpal-Gateway-Documentation was the reference document. If this document is out-of-date or there is better one? please let us know, thank you.
