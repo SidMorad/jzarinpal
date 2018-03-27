@@ -7,7 +7,7 @@
  <groupId>mars.jzarinpal</groupId>
  <artifactId>jzarinpal-bom</artifactId>
  <packaging>pom</packaging>
- <version>1.0-SNAPSHOT</version>
+ <version>1.0</version>
  <name>jzarinpal-bom</name>
 
  <modules>
