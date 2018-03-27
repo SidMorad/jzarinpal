@@ -4,11 +4,11 @@ From root of project execute following command:
 Which copies build.properties-template to build.properties, then modify `build.properties` to your settings manually then execute:
 `ant`
 Which copies properties from build.properties into BuildProps.java and finally:
-`mvn clean install`
+`./mvnw clean install`
 
 ### Docker
 For building jzarinpal-server docker image run following commands:
-`cd jzarinpal-server && mvn clean compile assembly:single dockerfile:build`
+`cd jzarinpal-server && ../mvnw clean compile assembly:single dockerfile:build`
 
 ### FreeBSD daemon
 For FreeBSD operationg system installation see

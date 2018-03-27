@@ -9,4 +9,4 @@ CMD echo "The application will start in ${SLEEP}s..." && \
 
 EXPOSE 9998
 
-ADD *.jar /app.jar
+ADD *-with-dependencies.jar /app.jar
