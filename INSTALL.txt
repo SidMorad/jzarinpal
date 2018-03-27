@@ -5,6 +5,8 @@ Which copies build.properties-template to build.properties, then modify `build.p
 `ant`
 Which copies properties from build.properties into BuildProps.java and finally:
 `./mvnw clean install`
+If you did have test failures:
+`./mvnw clean install -DskipTests`
 
 ### Docker
 For building jzarinpal-server docker image run following commands:
