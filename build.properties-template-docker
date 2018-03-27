@@ -6,18 +6,23 @@ merchantID=00000000-0000-0000-0000-000000000000
 isProdServer=true
 
 # Service base URI
-serviceBaseUri=http://0.0.0.0:9998
-# Note BaseUri http://0.0.0.0:9998/zarinpal
-# for when using a reverse proxy(e.g. nginx)
+serviceLocalBaseUri=http://0.0.0.0:9998/zarinpal
+serviceRemoteBaseUri=http://0.0.0.0:9998/zarinpal
+# or if client is in different server:
+serviceRemoteBaseUri=https://CHANGE.ME/zarinpal
+
+# Nginx as reverse proxy configuration:
+#
 # upstream zarinpal {
 #   server jzarinpal-service:9998;
 # }
 # location /zarinpal {
 #   proxy_pass http://zarinpal;
 # }
+# Note: since both nginx and jzarinpal-server are inside of docker network, then nginx can see jzarinpal-server with it's service name: jzarinpal-service.
 
 # Default callback URI
-defaultCallbackUri=http://CHANGE.ME/payment/callback/zarinpal
+defaultCallbackUri=https://CHANGE.ME/my-other-app/callback/zarinpal
 
 # Zarinpal start pay URI
 zarinpalStartPayUri=https://www.zarinpal.com/pg/StartPay

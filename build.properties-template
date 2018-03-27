@@ -6,7 +6,10 @@ merchantID=00000000-0000-0000-0000-000000000000
 isProdServer=false
 
 # Service base URI
-serviceBaseUri=http://127.0.0.1:9998
+serviceLocalBaseUri=http://127.0.0.1:9998
+serviceRemoteBaseUri=http://127.0.0.1:9998
+# Note: These two can be same when server and client apps are in the one server
+# and abvoisly client module will use serviceRemoteBaseUri address.
 
 # Default callback URI
 defaultCallbackUri=http://CHANGE.ME/payment/callback/zarinpal

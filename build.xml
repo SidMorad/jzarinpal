@@ -24,7 +24,9 @@
   <replace file="${BuildPropsDotJava}"
       token="@IS-PROD-SERVER@" value="${isProdServer}"/>
   <replace file="${BuildPropsDotJava}"
-      token="@SERVICE-BASE-URI@" value="${serviceBaseUri}"/>
+      token="@SERVICE-LOCAL-BASE-URI@" value="${serviceLocalBaseUri}"/>
+  <replace file="${BuildPropsDotJava}"
+      token="@SERVICE-REMOTE-BASE-URI@" value="${serviceRemoteBaseUri}"/>
   <replace file="${BuildPropsDotJava}"
       token="@DEFAULT-CALLBACK-URI@" value="${defaultCallbackUri}"/>
   <replace file="${BuildPropsDotJava}"

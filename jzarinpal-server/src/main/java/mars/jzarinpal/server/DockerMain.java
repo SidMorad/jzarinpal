@@ -15,7 +15,7 @@ public class DockerMain {
      *
      */
     public static HttpServer startServer() {
-        return startServer(BuildProps.serviceBaseUri);
+        return startServer(BuildProps.serviceLocalBaseUri);
     }
 
     public static HttpServer startServer(String baseUri) {

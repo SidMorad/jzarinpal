@@ -22,7 +22,7 @@ public class JZarinpalClientImpl extends ClientBase implements JZarinpalClient {
 
 	public static JZarinpalClient newClient() {
 		Client client = ClientBuilder.newClient();
-		WebTarget webTarget = client.target(BuildProps.serviceBaseUri);
+		WebTarget webTarget = client.target(BuildProps.serviceRemoteBaseUri);
 		return new JZarinpalClientImpl(webTarget);
 	}
 

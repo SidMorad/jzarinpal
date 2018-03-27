@@ -23,7 +23,7 @@ public abstract class ResourceTestCaseBase {
 
 		// create the client
 		Client client = ClientBuilder.newClient();
-		target = client.target(BuildProps.serviceBaseUri);
+		target = client.target(BuildProps.serviceLocalBaseUri);
 	}
 
 	@AfterClass
