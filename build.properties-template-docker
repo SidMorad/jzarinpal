@@ -7,11 +7,15 @@ isProdServer=true
 
 # Service base URI
 serviceLocalBaseUri=http://0.0.0.0:9998/zarinpal
-serviceRemoteBaseUri=http://0.0.0.0:9998/zarinpal
-# or if client is in different server:
-serviceRemoteBaseUri=https://CHANGE.ME/zarinpal
+#serviceRemoteBaseUri=https://CHANGE.ME/zarinpal
 
-# Nginx as reverse proxy configuration:
+# Default callback URI
+defaultCallbackUri=https://CHANGE.ME/my-other-app/callback/zarinpal
+
+# Zarinpal start pay URI
+zarinpalStartPayUri=https://www.zarinpal.com/pg/StartPay
+
+# Note: Nginx as reverse proxy configuration(/etc/nginx/conf.d/default.conf):
 #
 # upstream zarinpal {
 #   server jzarinpal-service:9998;
@@ -19,10 +23,4 @@ serviceRemoteBaseUri=https://CHANGE.ME/zarinpal
 # location /zarinpal {
 #   proxy_pass http://zarinpal;
 # }
-# Note: since both nginx and jzarinpal-server are inside of docker network, then nginx can see jzarinpal-server with it's service name: jzarinpal-service.
-
-# Default callback URI
-defaultCallbackUri=https://CHANGE.ME/my-other-app/callback/zarinpal
-
-# Zarinpal start pay URI
-zarinpalStartPayUri=https://www.zarinpal.com/pg/StartPay
+# Note: since both nginx and jzarinpal-server are using docker network, then nginx can see jzarinpal-server with it's service name: jzarinpal-service.
